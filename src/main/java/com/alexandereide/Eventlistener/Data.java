@@ -14,5 +14,8 @@ public class Data {
 	    public String motd;
 	    public String gamemode;
 	    public String newGamemode;
+		public String message;
+		public String gameMode;
+		public String newGameMode;
 	}
 
