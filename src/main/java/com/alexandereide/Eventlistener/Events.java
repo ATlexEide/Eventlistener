@@ -11,6 +11,15 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class Events implements Listener {
+	
+	public void SendData(Data data) 
+	{
+		   String json = gson.toJson(data);
+	        Bukkit.getServer().getLogger().info("JSON:");
+	        Bukkit.getServer().getLogger().info(json);
+	        Server.send(json);
+	}
+	
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
     @EventHandler
@@ -19,10 +28,8 @@ public class Events implements Listener {
         Data JoinData = new Data();
         JoinData.player = event.getPlayer().getName();
         JoinData.event = event.getEventName();
-        String json = gson.toJson(JoinData);
-        Bukkit.getServer().getLogger().info("JSON:");
-        Bukkit.getServer().getLogger().info(json);
-        Server.send(json);
+
+        SendData(JoinData);
 }
 @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
@@ -30,8 +37,8 @@ public class Events implements Listener {
     Data LeaveData = new Data();
     LeaveData.player = event.getPlayer().getName();
     LeaveData.event = event.getEventName();
-    String json = gson.toJson(LeaveData);
-    Server.send(json);
+    
+    SendData(LeaveData);
 }
 @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
@@ -45,8 +52,8 @@ public class Events implements Listener {
         chatData.player = event.getPlayer().getName();
         chatData.event = "ChatEvent";
         chatData.message = event.getMessage();
-        String json = gson.toJson(chatData);
-        Server.send(json);
+        
+        SendData(chatData);
 }
 @EventHandler
     public void onPlayerChangeGameMode(PlayerGameModeChangeEvent event) {
@@ -55,7 +62,7 @@ public class Events implements Listener {
     GameModeChangeData.event = event.getEventName();
     GameModeChangeData.gameMode = event.getPlayer().getGameMode().toString();
     GameModeChangeData.newGameMode = event.getNewGameMode().toString();
-    String json = gson.toJson(GameModeChangeData);
-    Server.send(json);
+    
+    SendData(GameModeChangeData);
 }
 }
