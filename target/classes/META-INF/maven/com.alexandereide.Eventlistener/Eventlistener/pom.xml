@@ -22,5 +22,19 @@
            <version>1.21.4-R0.1-SNAPSHOT</version>
            <scope>provided</scope>
     </dependency>
+    
+	<dependency>
+    		<groupId>io.javalin</groupId>
+    		<artifactId>javalin</artifactId>
+    		<version>6.5.0</version>
+	</dependency>
+	 <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.32</version>
+        </dependency>
+
+
+
 </dependencies>
 </project>
