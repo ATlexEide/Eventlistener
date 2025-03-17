@@ -20,12 +20,11 @@ public final class Main extends JavaPlugin {
         serverInfo.event = "ServerStart";
         serverInfo.motd = Bukkit.getMotd();
 //         Plugin startup logic
-        Bukkit.getLogger().info("Plugin Brutally Forced To Work");
         Bukkit.getPluginManager().registerEvents(new Events(), this);
         String json = gson.toJson(serverInfo);
         Server.send(json);
-    	Bukkit.getLogger().info("YIPPIEEEE");
-        Bukkit.getLogger().info("Plugin Running Yipie");
+    
+        Bukkit.getLogger().info("Plugin Running OWO");
     }
 
     @Override
