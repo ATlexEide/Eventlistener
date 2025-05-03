@@ -1,7 +1,5 @@
 package com.alexandereide.Eventlistener;
 
-import org.bukkit.Bukkit;
-
 public class Data {
 
 	    public static String ip;
