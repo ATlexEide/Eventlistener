@@ -1,7 +1,6 @@
 package com.alexandereide.Eventlistener;
+import java.io.IOException;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -10,26 +9,21 @@ import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class Events implements Listener {
-	
-	public void SendData(Data data) 
-	{
-		   String json = gson.toJson(data);
-	        Bukkit.getServer().getLogger().info("JSON:");
-	        Bukkit.getServer().getLogger().info(json);
-	        Server.send(json);
-	}
-	
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-    @EventHandler
-    public void onPLayerJoin(PlayerJoinEvent event) {
-        Data.onlinePlayers++;
-        Data JoinData = new Data();
-        JoinData.player = event.getPlayer().getName();
-        JoinData.event = event.getEventName();
+    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+@EventHandler
+public void onPLayerJoin(PlayerJoinEvent event) {
+    Data.onlinePlayers++;
+    Data JoinData = new Data();
+    JoinData.player = event.getPlayer().getName();
+    JoinData.event = event.getEventName();
 
-        SendData(JoinData);
+    String json = gson.toJson(JoinData);
+    Server.send(json);
 }
 @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
@@ -37,23 +31,20 @@ public class Events implements Listener {
     Data LeaveData = new Data();
     LeaveData.player = event.getPlayer().getName();
     LeaveData.event = event.getEventName();
-    
-    SendData(LeaveData);
+
+    String json = gson.toJson(LeaveData);
+    Server.send(json);
 }
 @EventHandler
-    public void onChat(AsyncPlayerChatEvent event) {
-
-/*
-    System.out.println(event.isAsynchronous());
-    System.out.println(Bukkit.isPrimaryThread());
-*/
-
+    public void onChat(AsyncPlayerChatEvent event) throws IOException, InterruptedException {
     Data chatData = new Data();
-        chatData.player = event.getPlayer().getName();
-        chatData.event = "ChatEvent";
-        chatData.message = event.getMessage();
-        
-        SendData(chatData);
+    chatData.player = event.getPlayer().getName();
+    chatData.event = "ChatEvent";
+    chatData.message = event.getMessage();
+
+    String json = gson.toJson(chatData);
+    Server.send(json);
+
 }
 @EventHandler
     public void onPlayerChangeGameMode(PlayerGameModeChangeEvent event) {
@@ -62,7 +53,8 @@ public class Events implements Listener {
     GameModeChangeData.event = event.getEventName();
     GameModeChangeData.gameMode = event.getPlayer().getGameMode().toString();
     GameModeChangeData.newGameMode = event.getNewGameMode().toString();
-    
-    SendData(GameModeChangeData);
+
+    String json = gson.toJson(GameModeChangeData);
+    Server.send(json);
 }
 }

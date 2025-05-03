@@ -1,17 +1,22 @@
 package com.alexandereide.Eventlistener;
 
+import org.bukkit.Bukkit;
+
 public class Data {
 
-	    public String ip;
-	    public String port;
+	    public static String ip;
+	    public static String port;
+	    public static String version;
 	    public static int onlinePlayers;
+	    public static String motd;
 	    public int playerCount = onlinePlayers;
+	    public String server_message = motd;
+	    public String server_version = version;
+	    public String server_ip = ip;
+	    public String server_port = port;
 
 	    public String player;
-	    public String messsage;
-	    public String discordMesssage;
 	    public String event;
-	    public String motd;
 	    public String gamemode;
 	    public String newGamemode;
 		public String message;
