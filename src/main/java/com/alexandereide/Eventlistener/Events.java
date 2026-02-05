@@ -2,12 +2,11 @@ package com.alexandereide.Eventlistener;
 import java.io.IOException;
 
 import org.bukkit.Bukkit;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -56,5 +55,20 @@ public void onPLayerJoin(PlayerJoinEvent event) {
 
     String json = gson.toJson(GameModeChangeData);
     Server.send(json);
+}
+
+@EventHandler
+public void onBlockBreak(BlockBreakEvent event) {
+    String block = event.getBlock().getRelative(0,-1,0).getType().toString();
+    if(block.equals("CHEST")){
+        Bukkit.broadcastMessage(event.getPlayer().getDisplayName() + " found treasure!");
+    };
+    Bukkit.getLogger().info("BOTTOM " + event.getBlock().getRelative(0,-1,0).getType().toString());
+//    Bukkit.broadcastMessage("BOTTOM " + event.getBlock().getRelative(0,-1,0).getType().toString());
+
+
+
+//    Bukkit.broadcastMessage(event.getBlock().getLocation().toString());
+    Bukkit.getLogger().info(event.getBlock().getLocation().toString());
 }
 }
