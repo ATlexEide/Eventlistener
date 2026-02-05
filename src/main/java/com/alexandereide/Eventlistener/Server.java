@@ -15,6 +15,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Server {
 	static Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+
 	static void start(String ip, int port){
 		try {
 			Javalin app = Javalin.create(config -> {
@@ -35,14 +37,14 @@ public class Server {
 				ctx.status();
 			});
 
-			app.post("/cmd", ctx -> {
-				Bukkit.getLogger().info(ctx.body());
-
-				Bukkit.getScheduler().runTaskLater(Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hi"));
-				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "say hi");
-				//Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), ctx.body());
-				ctx.status();
-			});
+//			app.post("/cmd", ctx -> {
+//				Bukkit.getLogger().info(ctx.body());
+//
+//				Bukkit.getScheduler().runTaskLater(Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "say hi"));
+//				Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), "say hi");
+//				//Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), ctx.body());
+//				ctx.status();
+//			});
 			Bukkit.getLogger().info("HTTP SERVER RUNNING");
 
 		} catch (Exception e) {
@@ -51,10 +53,14 @@ public class Server {
 	}
     static void send(String data){
         try {
+			String discord_uri = String.format("%s/chat", Data.discordIp);
+			Bukkit.getLogger().info("DISCORD URI");
+			Bukkit.getLogger().info(discord_uri);
             Bukkit.getServer().getLogger().info(data);
 			HttpClient client = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder()
-					.uri(URI.create("http://127.0.0.1:3000/events"))
+
+					.uri(URI.create(discord_uri))
 					.header("Content-Type", "application/json")
 					.POST(HttpRequest.BodyPublishers.ofString(data))
 					.build();
